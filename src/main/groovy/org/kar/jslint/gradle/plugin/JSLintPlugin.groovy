@@ -50,7 +50,7 @@ class JSLintPlugin implements Plugin<Project>
     private def configureJslintTask()
     {
         project.task(TASK_NAME) << {
-            project.file(project.reporting.baseDir).mkdirs()
+            project.file(project.reportsDir).mkdirs()
             logger.info("Running jslint on project ${project.name}")
             def antBuilder = services.get(IsolatedAntBuilder)
             final String xlsFilePath = loadXslFile()
