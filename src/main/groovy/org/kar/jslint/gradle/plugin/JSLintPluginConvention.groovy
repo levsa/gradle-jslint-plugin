@@ -14,11 +14,12 @@ class JSLintPluginConvention
 {
     private static final String TXT = 'txt'
     private static final String XML = 'xml'
-    private static final String REPORTS_DIR = 'reportsDir'
+    private static final String CHECKSTYLE = 'checkstyle'
+    private static final String REPORTS_DIR = 'reporting.baseDir'
     private static final String REPORTS_DIR_NAME = 'reports'
     private static final String PLAIN = 'plain'
     private static final String HTML = 'html'
-    public static final ANT_JAR = 'com.googlecode.jslint4java:jslint4java-ant:1.4.4'
+    public static final ANT_JAR = 'com.googlecode.jslint4java:jslint4java-ant:2.0.3'
 
     public static final String TASK_NAME = 'com.googlecode.jslint4java.ant.JSLintTask'
     List<String> inputDirs = ['.']
@@ -37,7 +38,7 @@ class JSLintPluginConvention
         {
             project.setProperty(REPORTS_DIR, "$project.buildDir/$REPORTS_DIR_NAME")
         }
-        destDir = "${project.reportsDir}"
+        destDir = "${project.reporting.baseDir}"
         destFile = "$destDir/$destFilename"
     }
 
@@ -60,7 +61,7 @@ class JSLintPluginConvention
         {
             case (PLAIN):
                 return createOutputFileName(TXT)
-            case ([XML, HTML]):
+            case ([XML, HTML, CHECKSTYLE]):
                 return createOutputFileName(XML)
         }
     }
@@ -84,10 +85,10 @@ class JSLintPluginConvention
     {
         switch (formatterType)
         {
-            case (PLAIN):
-                return PLAIN
-            case ([XML, HTML]):
+            case (HTML):
                 return XML
+            default:
+                return formatterType
         }
     }
 
