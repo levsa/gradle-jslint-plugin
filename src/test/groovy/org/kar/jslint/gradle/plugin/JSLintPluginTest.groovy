@@ -29,6 +29,7 @@ class JSLintPluginTest
     @Before
     public void setup() {
         project = ProjectBuilder.builder().build()
+        project.reporting = new ConfigObject()
         //configure the project directly with included jars to prevent going to the internet to load these
         project.configurations {
             jslint
@@ -173,6 +174,7 @@ class JSLintPluginTest
     public void testMissingConfiguration()
     {
         project = ProjectBuilder.builder().build()
+        project.reporting = new ConfigObject()
         plugin = new JSLintPlugin()
         plugin.apply(project)
         println project.configurations.getByName('jslint')
