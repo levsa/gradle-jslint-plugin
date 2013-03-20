@@ -15,7 +15,7 @@ class JSLintPluginConvention
     private static final String TXT = 'txt'
     private static final String XML = 'xml'
     private static final String CHECKSTYLE = 'checkstyle'
-    private static final String REPORTS_DIR = 'reportsDir'
+    private static final String REPORTS_DIR_PROPERTY = 'baseDir'
     private static final String REPORTS_DIR_NAME = 'reports'
     private static final String PLAIN = 'plain'
     private static final String HTML = 'html'
@@ -35,11 +35,11 @@ class JSLintPluginConvention
 
     public JSLintPluginConvention(Project project)
     {
-        if (!project.hasProperty(REPORTS_DIR))
+        if (!project.reporting.hasProperty(REPORTS_DIR_PROPERTY))
         {
-            project.setProperty(REPORTS_DIR, "$project.buildDir/$REPORTS_DIR_NAME")
+            project.reporting.setProperty(REPORTS_DIR_PROPERTY, "$project.buildDir/$REPORTS_DIR_NAME")
         }
-        destDir = "${project.reportsDir}"
+        destDir = "${project.reporting.baseDir}"
         destFile = "$destDir/$destFilename"
     }
 
