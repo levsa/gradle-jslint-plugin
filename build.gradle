@@ -10,7 +10,7 @@ apply plugin: 'codenarc'
 apply plugin: 'project-report'
 
 group = 'org.kar'
-version = '0.2-dp-SNAPSHOT'
+version = '0.2-SNAPSHOT'
 
 repositories {
     mavenCentral()
