@@ -29,6 +29,7 @@ class JSLintPluginConvention
     String destFilename = 'jslint'
     boolean haltOnFailure = true
     String options = ''
+    String jslint = ''
     String destDir
     String destFile
 
@@ -101,6 +102,10 @@ class JSLintPluginConvention
         if (options)
         {
             taskProperties['options'] = options
+        }
+        if (jslint)
+        {
+            taskProperties['jslint'] = jslint
         }
         return taskProperties
     }

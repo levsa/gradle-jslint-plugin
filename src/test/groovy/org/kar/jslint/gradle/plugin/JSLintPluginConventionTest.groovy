@@ -33,6 +33,7 @@ class JSLintPluginConventionTest
         assertEquals(convention.formatterType, 'plain')
         assertEquals(convention.destFilename, 'jslint')
         assertEquals(convention.haltOnFailure, true)
+        assertEquals(convention.jslint, '')
         assertEquals(convention.options, '')
         assertEquals(convention.inputDirs, ['.'])
         assertEquals(convention.includes, '**/*.js')
@@ -75,14 +76,17 @@ class JSLintPluginConventionTest
     {
         String myOptions = 'myOptions1,myOptions2'
         List<String> myInputDirs = ['dir1', 'dir2']
+        String myJslint = 'foo/jslint.js'
         convention.jslint {
             formatterType = 'xml'
             options = myOptions
             inputDirs = myInputDirs
             haltOnFailure = false
+            jslint = myJslint
         }
         assertEquals('xml', convention.formatterType)
         assertEquals(myOptions, convention.options)
+        assertEquals(myJslint, convention.jslint)
         assertEquals(myInputDirs, convention.inputDirs)
         assertEquals(false, convention.haltOnFailure)
     }
@@ -105,5 +109,16 @@ class JSLintPluginConventionTest
         assertThat(properties.size(), equalTo(2))
         assertThat(properties.haltOnFailure, equalTo(convention.haltOnFailure))
         assertThat(properties.options, equalTo(convention.options))
+    }
+
+    @Test
+    public void taskPropertiesShouldIncludeJslintIfSpecified()
+    {
+        LinkedHashMap<String, String> properties = convention.mapTaskProperties()
+        assertThat(properties.jslint, equalTo(null))
+        String myJslint = 'foo/jslint.js'
+        convention.jslint = myJslint
+        properties = convention.mapTaskProperties()
+        assertThat(properties.jslint, equalTo(myJslint))
     }
 }
